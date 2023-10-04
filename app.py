@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import numpy as np
 from scipy.optimize import minimize
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
