@@ -1,11 +1,15 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import numpy as np
 from scipy.optimize import minimize
 from flask_cors import CORS
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
+
+@app.route('/')
+def index():
+    return render_template('graph.html')
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
