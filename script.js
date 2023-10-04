@@ -5,7 +5,6 @@ function generateGraph() {
     const Aiy = document.getElementById('Aiy').value;
     const alpha_x = document.getElementById('x').value;
     const alpha_y = document.getElementById('y').value;
-    const beta_i = document.getElementById('beta_i').value;  
 
     fetch('http://localhost:5000/calculate', {
         method: 'POST',
@@ -18,8 +17,7 @@ function generateGraph() {
             Aix: Aix,
             Aiy: Aiy,
             alpha_x: alpha_x,
-            alpha_y: alpha_y,
-            beta_i: beta_i
+            alpha_y: alpha_y
         })
     })
     .then(response => response.json())
@@ -31,20 +29,20 @@ function generateGraph() {
             name: 'PPF'
         };
 
-        // Plotting the tangent indifference curve as a point for simplicity
-        const tangentTrace = {
-            x: [data.tangency_qx],
-            y: [data.tangency_qy],
+        // Assuming utility is a single value, we'll plot it as a point on the graph
+        const utilityTrace = {
+            x: [data.utility],
+            y: [data.utility],
             mode: 'markers',
-            name: 'Tangent Point',
+            name: 'Utility',
             marker: {
                 size: 10,
-                color: 'blue'
+                color: 'red'
             }
         };
 
         const layout = {
-            title: 'Production Possibilities Frontier (PPF) with Tangent Indifference Curve',
+            title: 'Production Possibilities Frontier (PPF) with Utility',
             xaxis: {
                 title: 'Quantity of Good x'
             },
@@ -53,7 +51,7 @@ function generateGraph() {
             }
         };
 
-        Plotly.newPlot('plot', [ppfTrace, tangentTrace], layout);
+        Plotly.newPlot('plot', [ppfTrace, utilityTrace], layout);
     })
     .catch(error => {
         console.error('Error fetching data:', error);

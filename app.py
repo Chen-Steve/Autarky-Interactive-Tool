@@ -11,21 +11,15 @@ def calculate():
     data = request.json
 
     # Extract data from the request
-    Li, Ki, Aix, Aiy, alpha_x, alpha_y, beta_i = float(data['Li']), float(data['Ki']), float(data['Aix']), float(data['Aiy']), float(data['alpha_x']), float(data['alpha_y']), float(data['beta_i'])
+    Li, Ki, Aix, Aiy, alpha_x, alpha_y = float(data['Li']), float(data['Ki']), float(data['Aix']), float(data['Aiy']), float(data['alpha_x']), float(data['alpha_y'])
 
     # Define the PPF function
     def ppf(qx):
         return Aiy * (Li - qx/Aix)**alpha_y * Ki**(1-alpha_y)
 
-    # Utility function
+    # Utility function (simplified without beta_i)
     def utility(cx, cy):
-        return cx**beta_i * cy**(1-beta_i)
-
-    # MRS function
-    def mrs(cx, cy):
-        mu_x = beta_i * cx**(beta_i - 1) * cy**(1-beta_i)
-        mu_y = (1-beta_i) * cx**beta_i * cy**(-beta_i)
-        return -mu_x/mu_y
+        return cx + cy
 
     # Optimization problem to find the PPF
     def objective(q):
@@ -42,23 +36,11 @@ def calculate():
 
     result = minimize(objective, [0.5, 0.5], constraints=constraints)
 
-    # Find the tangency point
-    qx_values = np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100)
-    ppf_values = [ppf(qxi) for qxi in qx_values]
-    mrs_values = [mrs(qxi, qyi) for qxi, qyi in zip(qx_values, ppf_values)]
-
-    # Assuming the PPF has a constant slope (MRT), find where MRS equals MRT
-    mrt = (ppf_values[-1] - ppf_values[0]) / (qx_values[-1] - qx_values[0])
-    tangency_index = np.argmin(np.abs(np.array(mrs_values) - mrt))
-    tangency_qx = qx_values[tangency_index]
-    tangency_qy = ppf_values[tangency_index]
-
     # Return the calculated data
     return jsonify({
-        'qx': qx_values.tolist(),
-        'qy': ppf_values,
-        'tangency_qx': tangency_qx,
-        'tangency_qy': tangency_qy
+        'qx': np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100).tolist(),
+        'qy': [ppf(qxi) for qxi in np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100)],
+        'utility': utility(result.x[0], result.x[1])
     })
 
 if __name__ == '__main__':
