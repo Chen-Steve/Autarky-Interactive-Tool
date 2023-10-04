@@ -2,7 +2,7 @@
 2. run live server
 3. Check for "POST /calculate HTTP" means Successful calculation
 
-![Autarky](Autarky.png)
+![Autarky](/static/css/Autarky.png)
 
 
 
