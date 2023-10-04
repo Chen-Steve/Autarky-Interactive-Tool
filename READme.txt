@@ -1,3 +1,5 @@
+![Description](./Autarky)
+
 Might need to run this:
 .\env\Scripts\Activate
 
