@@ -58,6 +58,10 @@
                 <input type="number" class="form-control" id="Aiy" value="1">
             </div>
             <div class="form-group">
+                <label for="beta_i">β<sup>i</sup> (Preference Parameter):</label>
+                <input type="number" class="form-control" id="beta_i" value="0.5" step="0.01" min="0" max="1">
+            </div>
+            <div class="form-group">
                 <label for="x">x (Output Elasticity of Labor for Good x in Country i):</label>
                 <input type="number" class="form-control" id="x" value="0.5" step="0.01" min="0" max="1">
             </div>
@@ -65,6 +69,7 @@
                 <label for="y">y (Output Elasticity of Labor for Good y in Country i):</label>
                 <input type="number" class="form-control" id="y" value="0.5" step="0.01" min="0" max="1">
             </div>
+
             <button type="button" class="btn btn-primary" onclick="generateGraph()">Generate Graph</button>
         </form>
         <div id="plot" class="mt-4"></div>
