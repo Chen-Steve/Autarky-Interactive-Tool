@@ -12,7 +12,12 @@ function generateGraph() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            Li, Ki, Aix, Aiy, x, y
+            Li: Li,
+            Ki: Ki,
+            Aix: Aix,
+            Aiy: Aiy,
+            x: x,
+            y: y
         })
     })
     .then(response => response.json())
@@ -20,8 +25,23 @@ function generateGraph() {
         const trace = {
             x: data.qx,
             y: data.qy,
-            mode: 'lines'
+            mode: 'lines',
+            name: 'PPF'
         };
-        Plotly.newPlot('plot', [trace]);
+
+        const layout = {
+            title: 'Production Possibilities Frontier (PPF)',
+            xaxis: {
+                title: 'Quantity of Good x'
+            },
+            yaxis: {
+                title: 'Quantity of Good y'
+            }
+        };
+
+        Plotly.newPlot('plot', [trace], layout);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
     });
 }
