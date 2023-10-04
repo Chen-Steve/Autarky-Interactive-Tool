@@ -36,11 +36,27 @@ def calculate():
 
     result = minimize(objective, [0.5, 0.5], constraints=constraints)
 
-    # Return the calculated data
+    # Find the tangency point
+    qx_values = np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100)
+    ppf_values = [ppf(qxi) for qxi in qx_values]
+    
+    # Generate multiple indifference curves
+    utilities = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5]  # Example utility levels
+    indifference_curves = []
+    for u in utilities:
+        cy_values = [u / qx if qx != 0 else 0 for qx in qx_values]
+        indifference_curves.append({
+            'utility': u,
+            'qx': qx_values.tolist(),
+            'qy': cy_values
+        })
+
     return jsonify({
-        'qx': np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100).tolist(),
-        'qy': [ppf(qxi) for qxi in np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100)],
-        'utility': utility(result.x[0], result.x[1])
+        'ppf': {
+            'qx': qx_values.tolist(),
+            'qy': ppf_values
+        },
+        'indifference_curves': indifference_curves
     })
 
 if __name__ == '__main__':

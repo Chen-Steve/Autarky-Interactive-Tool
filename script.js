@@ -23,26 +23,24 @@ function generateGraph() {
     .then(response => response.json())
     .then(data => {
         const ppfTrace = {
-            x: data.qx,
-            y: data.qy,
+            x: data.ppf.qx,
+            y: data.ppf.qy,
             mode: 'lines',
             name: 'PPF'
         };
 
-        // Assuming utility is a single value, we'll plot it as a point on the graph
-        const utilityTrace = {
-            x: [data.utility],
-            y: [data.utility],
-            mode: 'markers',
-            name: 'Utility',
-            marker: {
-                size: 10,
-                color: 'red'
-            }
-        };
+        const traces = [ppfTrace];
+        data.indifference_curves.forEach(curve => {
+            traces.push({
+                x: curve.qx,
+                y: curve.qy,
+                mode: 'lines',
+                name: `U=${curve.utility}`
+            });
+        });
 
         const layout = {
-            title: 'Production Possibilities Frontier (PPF) with Utility',
+            title: 'Production Possibilities Frontier (PPF) with Indifference Curves',
             xaxis: {
                 title: 'Quantity of Good x'
             },
@@ -51,7 +49,7 @@ function generateGraph() {
             }
         };
 
-        Plotly.newPlot('plot', [ppfTrace, utilityTrace], layout);
+        Plotly.newPlot('plot', traces, layout);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
