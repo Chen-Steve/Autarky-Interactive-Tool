@@ -1,9 +1,3 @@
-1. run python app.py
-2. run live server
-3. Check for "POST /calculate HTTP" means Successful calculation
+avaliable at https://autarky-interactive-tool-fd98fd723e47.herokuapp.com/
 
 ![Autarky](/static/css/Autarky.png)
-
-
-
-for myself: Set-ExecutionPolicy RemoteSigned -Scope Process then .\env\Scripts\Activate
