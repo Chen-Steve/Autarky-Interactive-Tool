@@ -1,4 +1,4 @@
-![Description](./Autarky)
+![Image Alt text](/images/Autarky.jpg)
 
 Might need to run this:
 .\env\Scripts\Activate
