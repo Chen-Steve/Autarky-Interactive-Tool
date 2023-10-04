@@ -42,27 +42,27 @@
         <h2 class="mb-4">Autarky Interactive Tool</h2>
         <form id="inputForm">
             <div class="form-group">
-                <label for="Li">Li (labor):</label>
+                <label for="Li">Li (Labor Supply of Country i):</label>
                 <input type="number" class="form-control" id="Li" value="1">
             </div>
             <div class="form-group">
-                <label for="Ki">Ki (Capital):</label>
+                <label for="Ki">Ki (Capital Supply of Country i):</label>
                 <input type="number" class="form-control" id="Ki" value="1">
             </div>
             <div class="form-group">
-                <label for="Aix">Aix (productivity of goods x):</label>
+                <label for="Aix">Aix (Productivity Parameter for Good x in Country i):</label>
                 <input type="number" class="form-control" id="Aix" value="1">
             </div>
             <div class="form-group">
-                <label for="Aiy">Aiy (productivity of goods y):</label>
+                <label for="Aiy">Aiy (Productivity Parameter for Good y in Country i):</label>
                 <input type="number" class="form-control" id="Aiy" value="1">
             </div>
             <div class="form-group">
-                <label for="x">x:</label>
+                <label for="x">αx (Output Elasticity of Labor for Good x in Country i):</label>
                 <input type="number" class="form-control" id="x" value="0.5" step="0.01" min="0" max="1">
             </div>
             <div class="form-group">
-                <label for="y">y:</label>
+                <label for="y">αy (Output Elasticity of Labor for Good y in Country i):</label>
                 <input type="number" class="form-control" id="y" value="0.5" step="0.01" min="0" max="1">
             </div>
             <button type="button" class="btn btn-primary" onclick="generateGraph()">Generate Graph</button>
