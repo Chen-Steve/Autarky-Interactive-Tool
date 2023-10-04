@@ -6,7 +6,10 @@ function generateGraph() {
     const alpha_x = document.getElementById('x').value;
     const alpha_y = document.getElementById('y').value;
 
-    fetch('http://localhost:5000/calculate', {
+    // Show a loading message or spinner
+    document.getElementById('plot').innerText = "Loading...";
+
+    fetch('/calculate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -20,7 +23,12 @@ function generateGraph() {
             alpha_y: alpha_y
         })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         const ppfTrace = {
             x: data.ppf.qx,
@@ -53,5 +61,7 @@ function generateGraph() {
     })
     .catch(error => {
         console.error('Error fetching data:', error);
+        // Display a user-friendly error message
+        document.getElementById('plot').innerText = "An error occurred while fetching the data. Please try again.";
     });
 }
