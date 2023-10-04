@@ -18,13 +18,13 @@ def calculate():
         return Aiy * (Li - qx/Aix)**alpha_y * Ki**(1-alpha_y)
 
     # Utility function
-    def utility(cy):
-        return cy**beta_i * cy**(1-beta_i)
+    def utility(cx, cy):
+        return cx**beta_i * cy**(1-beta_i)
 
     # Optimization problem to find the PPF
     def objective(q):
         qx, qy = q
-        return -utility(qy)
+        return -utility(qx, qy)
 
     constraints = (
         {'type': 'eq', 'fun': lambda q: q[0] - Aix * q[1]**alpha_x * Ki**(1-alpha_x)},
@@ -38,7 +38,7 @@ def calculate():
     return jsonify({
         'qx': np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100).tolist(),
         'qy': [ppf(qxi) for qxi in np.linspace(0, Aix*Li**alpha_x*Ki**(1-alpha_x), 100)],
-        'utility': utility(result.x[1])
+        'utility': utility(result.x[0], result.x[1])
     })
 
 if __name__ == '__main__':
