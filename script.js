@@ -31,20 +31,20 @@ function generateGraph() {
             name: 'PPF'
         };
 
-        // Assuming utility is a single value, we'll plot it as a point on the graph
-        const utilityTrace = {
-            x: [data.utility],
-            y: [data.utility],
+        // Plotting the tangent indifference curve as a point for simplicity
+        const tangentTrace = {
+            x: [data.tangency_qx],
+            y: [data.tangency_qy],
             mode: 'markers',
-            name: 'Utility',
+            name: 'Tangent Point',
             marker: {
                 size: 10,
-                color: 'red'
+                color: 'blue'
             }
         };
 
         const layout = {
-            title: 'Production Possibilities Frontier (PPF) with Utility',
+            title: 'Production Possibilities Frontier (PPF) with Tangent Indifference Curve',
             xaxis: {
                 title: 'Quantity of Good x'
             },
@@ -53,7 +53,7 @@ function generateGraph() {
             }
         };
 
-        Plotly.newPlot('plot', [ppfTrace, utilityTrace], layout);
+        Plotly.newPlot('plot', [ppfTrace, tangentTrace], layout);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
