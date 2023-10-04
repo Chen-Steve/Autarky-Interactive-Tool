@@ -1,15 +1,23 @@
 from flask import Flask, jsonify, request
 import numpy as np
 from scipy.optimize import minimize
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
     data = request.json
-    # Extract data from the request
-    Li, Ki, Aix, Aiy, x, y = data['Li'], data['Ki'], data['Aix'], data['Aiy'], data['x'], data['y']
+    # Extract data from the request and convert to appropriate numeric types
+    Li = float(data['Li'])
+    Ki = float(data['Ki'])
+    Aix = float(data['Aix'])
+    Aiy = float(data['Aiy'])
+    x = float(data['x'])
+    y = float(data['y'])
 
     # Define the PPF function
     def ppf(qx):
