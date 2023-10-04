@@ -47,13 +47,23 @@ function generateGraph() {
             });
         });
 
+        // Find the maximum and minimum values for x and y to set the range dynamically
+        const allX = [].concat(...traces.map(trace => trace.x));
+        const allY = [].concat(...traces.map(trace => trace.y));
+        const maxX = Math.max(...allX);
+        const maxY = Math.max(...allY);
+        const minX = Math.min(...allX);
+        const minY = Math.min(...allY);
+
         const layout = {
             title: 'Production Possibilities Frontier (PPF) with Indifference Curves',
             xaxis: {
-                title: 'Quantity of Good x'
+                title: 'Quantity of Good x',
+                range: [minX, maxX]
             },
             yaxis: {
-                title: 'Quantity of Good y'
+                title: 'Quantity of Good y',
+                range: [minY, maxY]
             }
         };
 
