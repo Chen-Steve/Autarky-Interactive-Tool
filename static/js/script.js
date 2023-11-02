@@ -3,6 +3,7 @@ function generateGraph() {
     const Ki = document.getElementById('Ki').value;
     const Aix = document.getElementById('Aix').value;
     const Aiy = document.getElementById('Aiy').value;
+    const beta = document.getElementById('beta_i').value; // Make sure to get the beta value
     const alpha_x = document.getElementById('x').value;
     const alpha_y = document.getElementById('y').value;
 
@@ -19,6 +20,7 @@ function generateGraph() {
             Ki: Ki,
             Aix: Aix,
             Aiy: Aiy,
+            beta: beta, // Include beta in the JSON body
             alpha_x: alpha_x,
             alpha_y: alpha_y
         })
@@ -37,7 +39,19 @@ function generateGraph() {
             name: 'PPF'
         };
 
-        const traces = [ppfTrace];
+        // Add a trace for the tangency point
+        const tangencyTrace = {
+            x: [data.tangency_point.qx],
+            y: [data.tangency_point.qy],
+            mode: 'markers',
+            name: 'Tangency Point',
+            marker: {
+                color: 'red',
+                size: 10
+            }
+        };
+
+        const traces = [ppfTrace, tangencyTrace]; // Include the tangency trace
         data.indifference_curves.forEach(curve => {
             traces.push({
                 x: curve.qx,
